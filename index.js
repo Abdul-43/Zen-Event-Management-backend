@@ -9,7 +9,12 @@ dotenv.config();
 
 const connect = async () => {
   try {
-    await mongoose.connect(process.env.MONGO, { dbName: "capstone" });
+    await mongoose.connect(process.env.MONGO, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      family: 4,
+      dbName: "capstone"
+    });
     console.log("mongo connected");
   } catch (err) {
     console.log(err);

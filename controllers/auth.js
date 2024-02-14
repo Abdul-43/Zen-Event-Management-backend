@@ -1,4 +1,4 @@
-import User from "../models/admin.js";
+// import User from "../models/admin.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -53,7 +53,7 @@ export const login = async (req, res) => {
     const sMail = await Student.findOne({ email: req.body.email });
     console.log(mail);
     if (mail) {
-      const compare1 = await bcrypt.compare(req.body.password, mail.password);
+      const compare1 = bcrypt.compare(req.body.password, mail.password);
       if (compare1) {
         const token = jwt.sign({ _id: mail._id }, process.env.JWT, {
           expiresIn: "120m",
@@ -66,7 +66,7 @@ export const login = async (req, res) => {
     }
 
     if (sMail) {
-      const compare2 = await bcrypt.compare(req.body.password, sMail.password);
+      const compare2 = bcrypt.compare(req.body.password, sMail.password);
 
       if (compare2) {
         const token = jwt.sign({ _id: sMail._id }, process.env.JWT, {
